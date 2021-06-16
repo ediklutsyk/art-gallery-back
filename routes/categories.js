@@ -32,15 +32,11 @@ router.get('/images', async (req, res) => {
         if (!category) {
             return res.status(404).send({error: 'No category with such id!'})
         }
-        const images = await Image.find()
         const result = category.images.map(imageId => {
-            console.log(imageId)
-            return images.find(image => {
-                console.log(image)
-                return image._id.toString() === imageId
-            })
+            return imageId;
         })
-        res.status(200).send({images: result})
+        const images = await Image.find({'_id': {$in: result}});
+        res.status(200).send({images: images})
     } catch (error) {
         res.status(400).send({error: error.message})
     }
