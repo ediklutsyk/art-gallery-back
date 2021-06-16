@@ -9,6 +9,7 @@ const logger = require('morgan');
 const userRouter = require('./routes/users')
 const categoriesRouter = require('./routes/categories')
 const imagesRouter = require('./routes/images')
+const authorsRouter = require('./routes/authors')
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use(cookieParser());
 app.use('/users', userRouter);
 app.use('/categories', categoriesRouter);
 app.use('/images', imagesRouter);
+app.use('/authors', authorsRouter);
 
 //DB
 mongoose.connect(configs.mongoURL, configs.mongoData)
