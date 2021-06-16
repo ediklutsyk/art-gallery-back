@@ -47,6 +47,18 @@ router.post('/add-categories', auth, async (req, res) => {
     }
 })
 
+router.get('/get-favourites', auth, async (req, res) => {
+    try {
+        const favIds = req.user.favouriteImages.map(fav=>{
+            return fav.imageId
+        })
+        const images = await Image.find({'_id': {$in: favIds}});
+        res.status(200).send(images)
+    } catch (error) {
+        res.status(400).send({error: error.message})
+    }
+})
+
 router.post('/add-image', auth, async (req, res) => {
     try {
         const imageId = req.body.imageId
