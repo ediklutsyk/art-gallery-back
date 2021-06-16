@@ -31,3 +31,5 @@ app.listen(port, () => {
     console.log(`Example apps listening at http://localhost:${port}`)
 })
 
+module.exports = app
+
