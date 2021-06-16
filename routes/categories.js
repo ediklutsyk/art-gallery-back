@@ -18,6 +18,7 @@ router.get('/all', auth, async (req, res) => {
     const categories = await Category.find()
     res.status(200).send(categories.map(category => {
         return {
+            _id: category._id,
             title: category.title,
             avatarUrl: category.avatarUrl
         }
