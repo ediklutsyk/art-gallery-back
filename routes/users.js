@@ -67,6 +67,21 @@ router.post('/add-image', auth, async (req, res) => {
     }
 })
 
+router.post('/remove-image', auth, async (req, res) => {
+    try {
+        const imageId = req.body.imageId
+        let user = req.user;
+        user.favouriteImages = user.favouriteImages.filter(favourite => {
+            return favourite.imageId === imageId
+        })
+        user.save()
+        req.user = user;
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(400).send({error: error.message})
+    }
+})
+
 router.get('/profile', auth, async (req, res) => {
     res.status(200).send(req.user)
 })
